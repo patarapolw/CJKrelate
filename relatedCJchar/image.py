@@ -1,8 +1,8 @@
 from PIL import ImageChops, Image, ImageFont, ImageDraw
 import math
 import os
-import sys
 import pickle
+
 
 from relatedCJchar.dir import ROOT
 
@@ -10,10 +10,7 @@ from relatedCJchar.dir import ROOT
 class ImageDiff:
     def __init__(self, font: str = None, font_size=50, temp=True):
         if font is None:
-            font = {
-                'win32': 'PmingLiu',
-                'darwin': 'LiSong Pro'
-            }.get(sys.platform, 'UMingTW')
+            font = os.path.join(ROOT, 'font', 'NotoSansCJKtc-Regular.otf')
         self.font = ImageFont.truetype(font, font_size)
         if temp:
             raw_path = os.path.splitext(font)[0] + '.pkl'

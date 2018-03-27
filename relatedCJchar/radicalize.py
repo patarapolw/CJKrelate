@@ -25,10 +25,10 @@ class Krad:
                     yield char, re.findall(r'\w', radicals)
 
     def get(self, character):
-        return self.entries[character]
+        return self.entries.get(character, [])
 
     def similar(self, character, distance=0):
-        set1 = set(self.entries[character])
+        set1 = set(self.get(character))
         for k, list2 in self.entries.items():
             if len(set1.symmetric_difference(list2)) <= distance:
                 yield k

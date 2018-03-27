@@ -199,5 +199,3 @@ venv.bak/
 # temporary files
 *.pkl
 
-# font files
-*.otf
