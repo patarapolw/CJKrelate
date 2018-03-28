@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/relatedCJchar/database/kanjd212" charset="EUC-JP" />
-    <file url="file://$PROJECT_DIR$/relatedCJchar/database/kanjidic" charset="EUC-JP" />
-    <file url="file://$PROJECT_DIR$/relatedCJchar/database/kradzip/kradfile" charset="EUC-JP" />
-    <file url="file://$PROJECT_DIR$/relatedCJchar/database/kradzip/kradfile2" charset="EUC-JP" />
-    <file url="file://$PROJECT_DIR$/relatedCJchar/database/kradzip/kradintro" charset="EUC-JP" />
-    <file url="file://$PROJECT_DIR$/relatedCJchar/database/kradzip/radkfile" charset="EUC-JP" />
-    <file url="file://$PROJECT_DIR$/relatedCJchar/database/kradzip/radkfile2" charset="EUC-JP" />
-    <file url="file://$PROJECT_DIR$/relatedCJchar/database/kradzip/radkfilex" charset="EUC-JP" />
+    <file url="file://$PROJECT_DIR$/relatedCJKchar/database/kradzip/kradfile" charset="EUC-JP" />
+    <file url="file://$PROJECT_DIR$/relatedCJKchar/database/kradzip/kradfile2" charset="EUC-JP" />
+    <file url="file://$PROJECT_DIR$/relatedCJKchar/database/kradzip/kradintro" charset="EUC-JP" />
   </component>
 </project>
