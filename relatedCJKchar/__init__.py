@@ -2,6 +2,7 @@ from relatedCJKchar.image import ImageDiffSimilar, ImageDiff
 from relatedCJKchar.radicalize import Krad
 from relatedCJKchar.variant import Variant
 from relatedCJKchar.decompose import Decompose
+from relatedCJKchar.sort import Sort
 
 
 class Related:
@@ -11,11 +12,10 @@ class Related:
         self.krad = Krad()
         self.variant = Variant()
         self.decompose = Decompose()
-        self.sorter = ImageDiff(font=font)
+        self.sort = Sort()
 
     def format(self, character):
         result = {
-            # 'radical': list(self.krad.similar(character)),
             'composition': self.decompose.similar(character),
         }
         if 'image_diff' in self.__dict__.keys():
@@ -37,7 +37,7 @@ class Related:
         for item in self.similar(character).values():
             for x in item.values():
                 result.extend(x)
-        return self.sorter.sort(character, set(result))
+        return self.sort.sort(character, set(result))
 
 
 if __name__ == '__main__':

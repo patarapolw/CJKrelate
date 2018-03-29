@@ -4,12 +4,11 @@ import os
 import pickle
 from io import BytesIO
 
-
 from relatedCJKchar.dir import ROOT
 
 
 class ImageDiff:
-    def __init__(self, font: str = None, font_size=50):
+    def __init__(self, font: str = None, font_size=50, lang='cn'):
         if font is None:
             font = os.path.join(ROOT, 'font', 'NotoSansCJKtc-Regular.otf')
         self.font = ImageFont.truetype(font, font_size)
@@ -41,19 +40,16 @@ class ImageDiff:
         #     return min_val
         # else:
         #     return max_val
-        "Calculate the root-mean-square difference between two images"
 
         im1 = self.char_to_image(char1)
         h = ImageChops.difference(im1, im2).histogram()
 
-        # calculate rms
-        return math.sqrt(sum(map(lambda h, i: h * (i ** 2), h, range(256))) / (float(im1.size[0]) * im1.size[1]))
+        rms = math.sqrt(sum(map(lambda h, i: h * (i ** 2), h, range(256))) / (float(im1.size[0]) * im1.size[1]))
+
+        return rms
 
     def diff(self, char1, char2):
         return self._diff(char1, self.char_to_image(char2))
-
-    def sort(self, char_base, char_list):
-        return [(char, diff) for diff, char in sorted((self.diff(char_base, char2), char2) for char2 in char_list)]
 
 
 class ImageDiffSimilar(ImageDiff):
