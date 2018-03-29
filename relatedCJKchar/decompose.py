@@ -19,7 +19,8 @@ class Decompose:
                     self.super_entries.setdefault(comp, []).append(entry)
 
     def get_sub(self, char):
-        return self.sort.sort(char, self.entries.get(char, []))
+        # return self.sort.sort(char, self.entries.get(char, []))  # radicals must not be sorted
+        return self.entries.get(char, [])
 
     def get_super(self, char):
         return self.sort.sort(char, self.super_entries.get(char, []))
@@ -35,7 +36,7 @@ class Decompose:
         result.extend(sub)
         result.extend(sup)
 
-        return result
+        return self.sort.sort(char, result)
 
 
 if __name__ == '__main__':
