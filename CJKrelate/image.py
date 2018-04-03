@@ -4,13 +4,9 @@ import os
 import pickle
 from io import BytesIO
 
-from CJKrelate.dir import ROOT
-
 
 class ImageDiff:
-    def __init__(self, font: str = None, font_size=50, lang='cn'):
-        if font is None:
-            font = os.path.join(ROOT, 'font', 'NotoSansCJKtc-Regular.otf')
+    def __init__(self, font, font_size=50):
         self.font = ImageFont.truetype(font, font_size)
 
     def get_dimension(self, character):

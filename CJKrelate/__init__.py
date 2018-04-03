@@ -1,18 +1,24 @@
+from CJKrelate.dir import ROOT
 from CJKrelate.image import ImageDiffSimilar, ImageDiff
 from CJKrelate.radicalize import Krad
 from CJKrelate.variant import Variant
 from CJKrelate.decompose import Decompose
-from CJKrelate.sort import Sort
 
 
 class Related:
-    def __init__(self, font=None, visually_similar=False):
+    def __init__(self, sorter=None, font=None, visually_similar=False):
+        """
+        Return related CJK char, regardless of language
+        sorter: Sorter ImageDiff object
+        font: path to font file
+        :type font: str
+        """
         if visually_similar:
             self.visual = ImageDiffSimilar(font=font)
         self.krad = Krad()
         self.variant = Variant()
-        self.decompose = Decompose()
-        self.sort = Sort()
+        self.decompose = Decompose(sorter=sorter)
+        self.sort = sorter
 
     def format(self, character):
         result = {
@@ -37,7 +43,10 @@ class Related:
         for item in self.similar(character).values():
             for x in item.values():
                 result.extend(x)
-        return self.sort.sort(character, set(result))
+        if self.sort:
+            return self.sort.sort(character, set(result))
+        else:
+            return character, set(result)
 
 
 if __name__ == '__main__':

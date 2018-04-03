@@ -1,35 +1,47 @@
-import os
-import json
-import math
-
-from CJKrelate.dir import ROOT
+from abc import ABCMeta, abstractmethod
 
 
-class Frequency:
-    def __init__(self, lang='cn'):
-        self.freq = ''
-        self.count = []
-        if lang.lower() in ['cn', 'chinese', 'hanzi']:
-            with open(os.path.join(ROOT, 'database', 'chinese', 'junda.txt')) as f:
-                for row in f:
-                    contents = row.split('\t')
-                    self.freq += contents[1]
-                    self.count.append(int(contents[2]))
+class AbstractFrequency(metaclass=ABCMeta):
+    entries = NotImplemented    # type: dict
+
+    @abstractmethod
+    def __init__(self):
+        """
+        self.entries[source] = list of [char, count, relative_frequency]
+        self.entries[source][0] = ["all", total_count, 1]
+        """
+        if self.entries is NotImplemented:
+            raise NotImplementedError
+
+        self.all_sources = self.merge_sources()
+
+    def relative_freq(self, char, source=None):
+        if source:
+            entries = self.entries[source]
         else:
-            with open(os.path.join(ROOT, 'database', 'japanese', 'frequency', 'news.json')) as f:
-                for i, row in enumerate(json.load(f)):
-                    if i != 0:
-                        self.freq += row[0]
-                        self.count.append(row[1])
+            entries = self.all_sources
 
-    def relative_freq(self, char):
-        try:
-            return math.log(math.e * self.count[self.freq.index(char)])
-        except ValueError:
-            return 0
+        for entry in entries:
+            if entry[0] == char:
+                return entry[2]
+
+        return 0
 
     def listing(self, char):
-        try:
-            return self.freq.index(char)
-        except ValueError:
-            return -1
+        for source, file_content in self.entries.items():
+            for i, entry in enumerate(file_content):
+                if entry[0] == char:
+                    yield source, i
+
+    def merge_sources(self):
+        all_chars = dict()
+        row_1 = row_2 = 0
+        number_of_files = len(self.entries)
+        for file_content in self.entries.values():
+            for row in file_content:
+                all_chars.setdefault(row[0], [row[0], row_1, row_2])
+                all_chars[row[0]][1] += row[1] / number_of_files
+                all_chars[row[0]][2] += row[2] / number_of_files
+
+        return sorted(all_chars.values(), key=lambda x: x[1], reverse=True)
+

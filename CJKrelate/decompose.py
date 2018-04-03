@@ -2,14 +2,17 @@ import re
 import os
 
 from CJKrelate.dir import ROOT
-from CJKrelate.sort import Sort
 
 
 class Decompose:
-    def __init__(self):
+    def __init__(self, sorter=None):
+        """
+        Decompose and super-compose CJK char
+        :type sorter: Sort ImageDiff object
+        """
         self.entries = dict()
         self.super_entries = dict()
-        self.sort = Sort()
+        self.sort = sorter
         with open(os.path.join(ROOT, 'database', 'cjk-decomp.txt')) as f:
             for row in f:
                 entry, _, components = re.match('(.+):(.+)\((.*)\)', row).groups()
@@ -36,7 +39,10 @@ class Decompose:
         result.extend(sub)
         result.extend(sup)
 
-        return self.sort.sort(char, result)
+        if self.sort:
+            return self.sort.sort(char, result)
+        else:
+            return char, result
 
 
 if __name__ == '__main__':
