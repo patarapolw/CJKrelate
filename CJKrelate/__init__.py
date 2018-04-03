@@ -1,8 +1,8 @@
-from relatedCJKchar.image import ImageDiffSimilar, ImageDiff
-from relatedCJKchar.radicalize import Krad
-from relatedCJKchar.variant import Variant
-from relatedCJKchar.decompose import Decompose
-from relatedCJKchar.sort import Sort
+from CJKrelate.image import ImageDiffSimilar, ImageDiff
+from CJKrelate.radicalize import Krad
+from CJKrelate.variant import Variant
+from CJKrelate.decompose import Decompose
+from CJKrelate.sort import Sort
 
 
 class Related:

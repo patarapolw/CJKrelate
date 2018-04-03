@@ -3,13 +3,13 @@ import os
 import re
 import string
 
-from relatedCJKchar.dir import ROOT
+from CJKrelate.dir import ROOT
 
 
 class Manual:
     def __init__(self):
         try:
-            with open(os.path.join(ROOT, 'database', 'manual_input.yaml')) as f:
+            with open(os.path.join(ROOT, 'database', 'human.yaml')) as f:
                 self.entries = yaml.safe_load(f)
         except FileNotFoundError:
             self.entries = dict()
@@ -34,7 +34,7 @@ class Manual:
         return self.entries.get(char, set())
 
     def dump(self):
-        with open(os.path.join(ROOT, 'database', 'manual_input.yaml'), 'w') as f:
+        with open(os.path.join(ROOT, 'database', 'human.yaml'), 'w') as f:
             yaml.dump(self.entries, stream=f, allow_unicode=True)
 
     def check_hlp(self):

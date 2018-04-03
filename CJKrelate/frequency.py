@@ -2,7 +2,7 @@ import os
 import json
 import math
 
-from relatedCJKchar.dir import ROOT
+from CJKrelate.dir import ROOT
 
 
 class Frequency:
@@ -10,13 +10,13 @@ class Frequency:
         self.freq = ''
         self.count = []
         if lang.lower() in ['cn', 'chinese', 'hanzi']:
-            with open(os.path.join(ROOT, 'database', 'frequency', 'hanzi', 'junda.txt')) as f:
+            with open(os.path.join(ROOT, 'database', 'chinese', 'junda.txt')) as f:
                 for row in f:
                     contents = row.split('\t')
                     self.freq += contents[1]
                     self.count.append(int(contents[2]))
         else:
-            with open(os.path.join(ROOT, 'database', 'frequency', 'kanji', 'news.json')) as f:
+            with open(os.path.join(ROOT, 'database', 'japanese', 'frequency', 'news.json')) as f:
                 for i, row in enumerate(json.load(f)):
                     if i != 0:
                         self.freq += row[0]

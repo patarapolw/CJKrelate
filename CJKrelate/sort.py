@@ -1,7 +1,7 @@
 import math
 
-from relatedCJKchar.image import ImageDiff
-from relatedCJKchar.frequency import Frequency
+from CJKrelate.image import ImageDiff
+from CJKrelate.frequency import Frequency
 
 
 class Sort(ImageDiff):

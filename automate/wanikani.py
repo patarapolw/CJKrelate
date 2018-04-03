@@ -2,8 +2,8 @@ import os
 
 from automate import Output
 
-from relatedCJKchar.dir import ROOT
-from relatedCJKchar.decompose import Decompose
+from CJKrelate.dir import ROOT
+from CJKrelate.decompose import Decompose
 
 
 def printable_radicals():
@@ -17,7 +17,7 @@ def printable_radicals():
 
 
 def radical_to_hanzi():
-    out = Output(os.path.join(ROOT, 'database', 'manual_input.yaml'))
+    out = Output(os.path.join(ROOT, 'database', 'human.yaml'))
     decom = Decompose()
 
     for radical in printable_radicals():

@@ -3,7 +3,7 @@ import os
 import re
 import string
 
-from relatedCJKchar.dir import ROOT
+from CJKrelate.dir import ROOT
 
 
 class Output:

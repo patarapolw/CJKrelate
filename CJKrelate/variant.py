@@ -1,7 +1,7 @@
 import os
 import re
 
-from relatedCJKchar.dir import ROOT
+from CJKrelate.dir import ROOT
 
 
 class Variant:

@@ -1,8 +1,8 @@
 import re
 import os
 
-from relatedCJKchar.dir import ROOT
-from relatedCJKchar.sort import Sort
+from CJKrelate.dir import ROOT
+from CJKrelate.sort import Sort
 
 
 class Decompose:
