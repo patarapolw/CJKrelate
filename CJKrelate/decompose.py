@@ -26,7 +26,10 @@ class Decompose:
         return self.entries.get(char, [])
 
     def get_super(self, char):
-        return self.sort.sort(char, self.super_entries.get(char, []))
+        if self.sort:
+            return self.sort.sort(char, self.super_entries.get(char, []))
+        else:
+            return self.super_entries.get(char, [])
 
     def similar(self, char):
         result = []

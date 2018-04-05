@@ -1,5 +1,5 @@
 from CJKrelate.dir import ROOT
-from CJKrelate.image import ImageDiffSimilar, ImageDiff
+from CJKrelate.image import ImageDiffSimilar
 from CJKrelate.radicalize import Krad
 from CJKrelate.variant import Variant
 from CJKrelate.decompose import Decompose
