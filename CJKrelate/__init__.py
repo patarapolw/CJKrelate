@@ -25,7 +25,7 @@ class Related:
             'composition': self.decompose.similar(character),
         }
         if 'image_diff' in self.__dict__.keys():
-            result['visual']: self.visual.similar(character)
+            result['visual'] = self.visual.similar(character)
         return result
 
     def similar(self, character):
