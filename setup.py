@@ -20,6 +20,7 @@ setup(
     keywords='CJK chinese japanese hanzi kanji',  # Optional
     packages=find_packages(exclude=['automate', 'manual', 'test']),  # Required
     install_requires=['pillow', 'PyYAML'],  # Optional
+    python_requires='>=3.5',
     extras_require={  # Optional
         'dev': [],
         'test': ['pytest'],
