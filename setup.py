@@ -10,7 +10,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='CJKrelate',  # Required
-    version='0.1.0',  # Required
+    version='0.1.2',  # Required
     description='Generate related Hanzi/Kanji by various means. Visually. Also, a summary table is humanly made.',
     long_description=long_description,  # Optional
     long_description_content_type='text/markdown',  # Optional (see note above)
@@ -22,10 +22,24 @@ setup(
     install_requires=['pillow', 'PyYAML'],  # Optional
     python_requires='>=3.5',
     extras_require={  # Optional
-        'dev': [],
-        'test': ['pytest'],
+        'tests': ['pytest'],
     },
     package_data={  # Optional
         'CJKrelate': ['database', 'font'],
-    }
+    },
+    include_package_date=True,
+    license='MIT',
+    classifiers=[
+        'Development Status :: 4 - Beta',
+        'Environment :: Console',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
+        'Natural Language :: Cantonese',
+        'Natural Language :: Chinese (Simplified)',
+        'Natural Language :: Chinese (Traditional)',
+        'Natural Language :: Japanese',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Topic :: Utilities'
+    ],
 )
