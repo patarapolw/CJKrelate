@@ -5,7 +5,7 @@ from CJKrelate.image import ImageDiffSimilar, CharacterSimilar
 
 start = time()
 engine = ImageDiffSimilar(font="/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc")
-parent = "復"
+parent = "知"
 print(parent)
 
 sim = CharacterSimilar(parent, engine)

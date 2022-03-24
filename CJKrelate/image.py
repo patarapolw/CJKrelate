@@ -46,14 +46,14 @@ class ImageDiffSimilar(ImageDiff):
             font_size (int, optional): Font Size. Defaults to 50.
             rms_limit (Union[int, None], optional): Limit of similarity (in root-mean-square). Defaults to 100.
                 The higher, the more difference. Set to 0 or None for no limit.
-            cache (bool, optional): _description_. Defaults to True.
+            cache (bool, optional): Save font file as a pickle. Defaults to True.
         """
         super().__init__(font, font_size)
         self.rms_limit = rms_limit
 
         self.diff_dict = dict()
         if cache:
-            raw_path = "font_image.pkl"
+            raw_path = os.path.basename(font) + ".pkl"
             if not os.path.exists(raw_path):
                 for k, v in self.load():
                     raw = BytesIO()

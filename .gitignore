@@ -198,4 +198,4 @@ venv.bak/
 
 # temporary files
 *.pkl
-
+wanikani.db
