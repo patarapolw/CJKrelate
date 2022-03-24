@@ -1,16 +1,17 @@
-from CJKrelate.image import ImageDiff, ImageDiffSimilar
 from time import time
 from datetime import timedelta
 
+from CJKrelate.image import ImageDiffSimilar, CharacterSimilar
+
 start = time()
-d = ImageDiffSimilar(font='/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc')
-print(timedelta(seconds=time()-start))
-
-parent = '復'
+engine = ImageDiffSimilar(font="/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc")
+parent = "復"
 print(parent)
-print()
 
-for c in d.iter_similar(parent):
-    print(c)
+sim = CharacterSimilar(parent, engine)
 
-print(timedelta(seconds=time()-start))
+print(timedelta(seconds=time() - start))
+print(sim.ranking())
+print(sim.finalize())
+
+print(timedelta(seconds=time() - start))
