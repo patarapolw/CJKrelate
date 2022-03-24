@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "CJKrelate"
+version = "0.1.0"
+description = "Generate related Hanzi/Kanji by various means. Visually. Also, a summary table is humanly made."
+authors = ["Pacharapol Withayasakpunt <polv@polv.cc>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Pillow = "^9.0.1"
+PyYAML = "^6.0"
+
+[tool.poetry.dev-dependencies]
+requests = "^2.27.1"
+pytest = "^7.1.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

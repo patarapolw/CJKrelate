@@ -6,7 +6,7 @@ from io import BytesIO
 
 
 class ImageDiff:
-    def __init__(self, font, font_size=50):
+    def __init__(self, font: str, font_size=50):
         self.font = ImageFont.truetype(font, font_size)
 
     def get_dimension(self, character):
@@ -17,39 +17,24 @@ class ImageDiff:
         ImageDraw.Draw(image).text((0, 0), character, fill="black", font=self.font)
         return image
 
-    def _diff(self, char1, im2):
-        # methods = [cv2.TM_CCOEFF,
-        #            cv2.TM_CCOEFF_NORMED,
-        #            cv2.TM_CCORR,
-        #            cv2.TM_CCORR_NORMED,
-        #            cv2.TM_SQDIFF,
-        #            cv2.TM_SQDIFF_NORMED
-        #            ]
-        # method = methods[5]
-        # res = cv2.matchTemplate(numpy.array(self.char_to_image(char1)),
-        #                         numpy.array(im2), method)
-        #
-        # min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
-        # # If the method is TM_SQDIFF or TM_SQDIFF_NORMED, take minimum
-        #
-        # if method in [cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED]
-        #     return min_val
-        # else:
-        #     return max_val
-
-        im1 = self.char_to_image(char1)
+    def diff_im(self, im1, im2):
         h = ImageChops.difference(im1, im2).histogram()
-
         rms = math.sqrt(sum(map(lambda h, i: h * (i ** 2), h, range(256))) / (float(im1.size[0]) * im1.size[1]))
-
         return rms
 
     def diff(self, char1, char2):
-        return self._diff(char1, self.char_to_image(char2))
+        return self.diff_im(self.char_to_image(char1), self.char_to_image(char2))
 
 
 class ImageDiffSimilar(ImageDiff):
-    def __init__(self, font: str = None, font_size=50, cache=True):
+    def __init__(self, font: str, font_size=50, cache=True):
+        """Font list generator
+
+        Args:
+            font (str): path to font file (`fc-list | grep noto | grep JP` in Linux)
+            font_size (int, optional): Font Size. Defaults to 50.
+            cache (bool, optional): Defaults to True.
+        """
         super().__init__(font, font_size)
         self.diff_dict = dict()
         if cache:
@@ -75,20 +60,21 @@ class ImageDiffSimilar(ImageDiff):
         return [char for _, char in sorted(self.iter_similar(character))]
 
     def iter_similar(self, character):
+        im = self.char_to_image(character)
         for diff_char, diff in self.diff_dict.items():
-            rms = self._diff(character, Image.open(diff))
+            rms = self.diff_im(im, Image.open(diff))
             yield rms, diff_char
 
+class CharacterSimilar:
+    def __init__(self, character: str, engine: ImageDiffSimilar) -> None:
+        self.c = character
+        self.engine = engine
+        self.im = self.engine.char_to_image(self.c)
 
-if __name__ == '__main__':
-    # d = ImageDiff()
-    # print(d.diff('日', '鈤'))
+    def __iter__(self):
+        for diff_char, diff in self.engine.diff_dict.items():
+            rms = self.engine.diff_im(self.im, Image.open(diff))
+            yield rms, diff_char
 
-    from time import time
-    start = time()
-    d = ImageDiffSimilar()
-    print(time()-start)
-
-    start = time()
-    print(d.similar('日'))
-    print(time()-start)
+    def finalize(self) -> list[str]:
+        return [char for _, char in sorted(self)]
